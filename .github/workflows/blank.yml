@@ -13,12 +13,12 @@ jobs:
     - name: Enable SSH
       run: Add-WindowsCapability -Online -Name OpenSSH.Client*
     - name: Copy Keys
-      run: echo $Env:SSH_PRIVATE_KEY > %userprofile%\.ssh\id_rsa
-    - run: echo $Env:SSH_PUBLIC_KEY > %userprofile%\.ssh\id_rsa.pub
+      run: echo $Env:SSH_PRIVATE_KEY > "C:\Users\Administrator\.ssh\id_rsa"
+    - run: echo $Env:SSH_PUBLIC_KEY > "C:\Users\Administrator\.ssh\id_rsa.pub"
     - name: Add private key to ssh-agent
       run: Set-Service ssh-agent StartupType 'Automatic'
     - run: Start-Service ssh-agent
-    - run: C:\windows\system32\openssh\ssh-add "%userprofile%\.ssh\id_rsa"
+    - run: C:\windows\system32\openssh\ssh-add "C:\Users\Administrator\.ssh\id_rsa"
     - name: Enable TS
       run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
     - run: Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
