@@ -1,0 +1,29 @@
+name: CI
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - name: Enable SSH
+      run: Add-WindowsCapability -Online -Name OpenSSH.Client*
+    - name: Copy Keys
+      run: echo $Env:SSH_PRIVATE_KEY > %userprofile%\.ssh\id_rsa
+    - run: echo $Env:SSH_PUBLIC_KEY > %userprofile%\.ssh\id_rsa.pub
+    env:
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      SSH_PUBLIC_KEY: ${{ secrets.SSH_PUBLIC_KEY }}
+    - name: Add private key to ssh-agent
+      run: Set-Service ssh-agent StartupType 'Automatic'
+    - run: Start-Service ssh-agent
+    - run: C:\windows\system32\openssh\ssh-add "%userprofile%\.ssh\id_rsa"
+    - name: Enable TS
+      run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
+    - run: Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+    - run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
+    - run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "P@ssw0rd!" -Force)
+    - name: Finalizing
+      run: C:\windows\system32\openssh\ssh.exe -R 8888:localhost:3389
