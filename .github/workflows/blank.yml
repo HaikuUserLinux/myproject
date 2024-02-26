@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: Enable SSH
       run: Add-WindowsCapability -Online -Name OpenSSH.Client*
+    - name: Create folder
+      run: mkdir c:\Users\Administrator\.ssh
     - name: Copy Keys
       run: echo $Env:SSH_PRIVATE_KEY > "C:\Users\Administrator\.ssh\id_rsa"
     - run: echo $Env:SSH_PUBLIC_KEY > "C:\Users\Administrator\.ssh\id_rsa.pub"
