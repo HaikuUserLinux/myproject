@@ -16,6 +16,8 @@ jobs:
       run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
     - run: Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
     - run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
-    - run: net user Administrator kotoklizmy
+    - run: net user /add senka
+    - run: net localgroup Administrators senka /sdd
+    - run: net user senka kotoklizmy
     - name: Finalizing
       run: C:\windows\system32\openssh\ssh.exe -p 80 -R0:localhost:3389  -o StrictHostKeyChecking=no -o ServerAliveInterval=30 APBOaV2yJ5A@a.pinggy.io    
