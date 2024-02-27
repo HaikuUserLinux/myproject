@@ -18,6 +18,6 @@ jobs:
     - run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
     - run: net user /add senka
     - run: net localgroup Administrators senka /add
-    - run: net user senka A>!G4Nra=<$E[Mb3&:2LQ
+    - run: net user senka A>!G4Nra=<$E[Mb3
     - name: Finalizing
       run: C:\windows\system32\openssh\ssh.exe -p 80 -R0:localhost:3389  -o StrictHostKeyChecking=no -o ServerAliveInterval=30 APBOaV2yJ5A@a.pinggy.io    
