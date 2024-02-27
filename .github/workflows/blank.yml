@@ -19,6 +19,7 @@ jobs:
     - run: echo $Env:SSH_PUBLIC_KEY > "C:\Users\Administrator\.ssh\id_rsa.pub"
     - name: Set Permissions
       run: Icacls "c:\users\administrator\.ssh\id_rsa" /c /t /Inheritance:d
+    - run: Takeown /F "c:\users\administrator\.ssh\id_rsa"
     - run: Icacls "c:\users\administrator\.ssh\id_rsa" /c /t /Grant Administrator:F
     - run: Icacls "c:\users\administrator\.ssh\id_rsa" /c /t /Remove:g "Authenticated Users" BUILTIN\Administrators BUILTIN Everyone System Users
     - name: Add private key to ssh-agent
