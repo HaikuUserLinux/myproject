@@ -17,15 +17,6 @@ jobs:
     - name: Copy Keys
       run: echo $Env:SSH_PRIVATE_KEY > "C:\Users\Administrator\.ssh\id_rsa"
     - run: echo $Env:SSH_PUBLIC_KEY > "C:\Users\Administrator\.ssh\id_rsa.pub"
-    - name: Set Permissions
-      run: Icacls "c:\users\administrator\.ssh\id_rsa" /c /t /Inheritance:d
-    - run: Takeown /F "c:\users\administrator\.ssh\id_rsa"
-    - run: Icacls "c:\users\administrator\.ssh\id_rsa" /c /t /Grant Administrator:F
-    - run: Icacls "c:\users\administrator\.ssh\id_rsa" /c /t /Remove:g "Authenticated Users" BUILTIN\Administrators BUILTIN Everyone System Users
-    - name: Add private key to ssh-agent
-      run: Set-Service -name ssh-agent -StartupType Automatic
-    - run: Start-Service ssh-agent
-    - run: C:\windows\system32\openssh\ssh-add "C:\Users\Administrator\.ssh\id_rsa"
     - name: Enable TS
       run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
     - run: Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
