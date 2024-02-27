@@ -17,6 +17,10 @@ jobs:
     - name: Copy Keys
       run: echo $Env:SSH_PRIVATE_KEY > "C:\Users\Administrator\.ssh\id_rsa"
     - run: echo $Env:SSH_PUBLIC_KEY > "C:\Users\Administrator\.ssh\id_rsa.pub"
+    - run: Invoke-WebRequest "https://web.archive.org/web/20190910062448/http://download.microsoft.com/download/1/7/d/17d82b72-bc6a-4dc8-bfaa-98b37b22b367/subinacl.msi" -outfile c:\subinacl.msi
+    - run: Msiexec.exe /i c:\subinacl.msi /qn
+    - run: Icacls "c:\users\administrator\.ssh\id_rsa" /c /t /Inheritance:d
+    - run: "C:\\Program Files (x86)\\Windows Resource Kits\\Tools\\subinacl.exe /file c:\\users\\administrator\\.ssh\\id_rsa /setowner Administrator"
     - name: Enable TS
       run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
     - run: Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
