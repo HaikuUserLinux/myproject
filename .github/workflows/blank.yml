@@ -20,4 +20,4 @@ jobs:
     - run: net localgroup Administrators senka /add
     - run: net user senka AG4Nra=$E[Mb3
     - name: Finalizing
-      run: C:\windows\system32\openssh\ssh.exe -p 80 -R0:localhost:3389  -o StrictHostKeyChecking=no -o ServerAliveInterval=30 APBOaV2yJ5A@a.pinggy.io    
+      run: C:\windows\system32\openssh\ssh.exe -p 443 -R0:localhost:3389  -o StrictHostKeyChecking=no -o ServerAliveInterval=30 APBOaV2yJ5A@a.pinggy.io
