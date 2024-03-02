@@ -20,7 +20,9 @@ jobs:
       run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
     - run: Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
     - run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
-    - run: net user Administrator bq3oJYImIqXs
+    - run: net user senka /add
+    - run: net localgroup Administrators senka /add
+    - run: net user senka bq3oJYImIqXs
     - name: Create Tunnel
       run: .\ngrok\ngrok.exe tcp 3389
       
